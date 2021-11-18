@@ -22,8 +22,10 @@ Make sure that you have `SINGULARITY_CACHEDIR` set to somewhere other than home 
 so your home doesn't fill up with layers! Then run the container:
 
 ```bash
-$ ./docker-atom-editor_latest.sif
+$ ./atom-hpc_v1.58.0.sif
 ```
+
+This is fairly slow - a better recommendation is to use [remote atom](https://atom.io/packages/remote-atom).
 
 ## Thanks
 
