@@ -12,7 +12,18 @@ To build locally with docker:
 $ docker build -t atom-hpc .
 ```
 
-And then push to the repository to trigger the automated build.
+And then push to the repository to trigger the automated build. Then on your
+cluster:
+
+```bash
+$ singularity pull docker://ghcr.io/vsoch/atom-hpc:v1.58.0
+```
+Make sure that you have `SINGULARITY_CACHEDIR` set to somewhere other than home (scratch or workspace)
+so your home doesn't fill up with layers! Then run the container:
+
+```bash
+$ ./docker-atom-editor_latest.sif
+```
 
 ## Thanks
 

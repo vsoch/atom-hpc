@@ -16,6 +16,7 @@ RUN apt-get update && \
       git \
       gvfs-bin \
       libasound2 \
+      libgbm-dev \
       libcap2 \
       libgconf-2-4 \
       libgcrypt20 \
