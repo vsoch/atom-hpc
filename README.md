@@ -1,24 +1,21 @@
-# docker-atom-editor
+# Atom HPC
 
-## Overview
+An [atom editor](https://atom.io/) optimized for using on HPC, meaning we will pull and run a Singularity container!
+But since I'm lazy, let's push to a Docker (OCI) registry and pull from there.
 
-Install and run the [Atom editor](https://atom.io/) from within a Docker container.
 
-## Building the image
+## Usage
 
-Clone this repository, change into the source directory and run:
+To build locally with docker:
 
+```bash
+$ docker build -t atom-hpc .
 ```
-docker build . -t jamesnetherton/docker-atom-editor
-```
 
-## Running Atom
+And then push to the repository to trigger the automated build.
 
-```
-docker run -d -v /tmp/.X11-unix/:/tmp/.X11-unix/ \
-              -v /dev/shm:/dev/shm \
-              -v ${HOME}/.atom:/home/atom/.atom \
-              -e DISPLAY \
-              jamesnetherton/docker-atom-editor
-```
-Note that `-v /dev/shm:/dev/shm` may be optional and can be replaced by `--shm-size="<number><unit>"`.
+## Thanks
+
+This is based on a version from [docker-atom-editor](https://github.com/jamesnetherton/docker-atom-editor)
+but updated for a specific ubuntu container and automated GitHub packages build. The commit history is maintained
+to give due credit.

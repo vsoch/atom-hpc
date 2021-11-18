@@ -1,0 +1,33 @@
+name: Build and Deploy Container
+
+on:
+  # Always test on pull request
+  pull_request: []
+
+  # Deploy on merge to main
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-test-containers:
+    runs-on: ubuntu-latest
+    name: Build Container
+    env:
+      ATOM_VERSION: v1.58.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2        
+
+      - name: Build Container
+        run: |
+          docker build --build-arg ATOM_VERSION=${ATOM_VERSION} -t ghcr.io/vsoch/atom-hpc .
+          docker tag ghcr.io/vsoch/atom-hpc:latest ghcr.io/vsoch/atom-hpc:${ATOM_VERSION}
+
+      - name: Login and Deploy Test Container
+        if: (github.event_name != 'pull_request')
+        run: |
+            docker images
+            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            docker push ghcr.io/vsoch/atom-hpc:latest
+            docker push ghcr.io/vsoch/atom-hpc:${ATOM_VERSION}

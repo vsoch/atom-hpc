@@ -1,9 +1,13 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
-ENV ATOM_VERSION v1.57.0
+# docker build -t atom-hpc .
+
+ARG ATOM_VERSION="v1.58.0"
+ENV ATOM_VERSION=${ATOM_VERSION}
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    apt-get install -y --no-install-recommends \
       ca-certificates \
       curl \
       fakeroot \
@@ -35,6 +39,4 @@ RUN apt-get update && \
     rm -f /tmp/atom.deb && \
     useradd -d /home/atom -m atom -s /bin/bash
 
-USER atom
-
-CMD ["/usr/bin/atom","-f","--no-sandbox"]
+CMD ["/usr/bin/atom", "-f", "--no-sandbox"]
